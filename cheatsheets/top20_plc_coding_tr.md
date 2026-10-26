@@ -1,5 +1,7 @@
 # 🛡️ Top 20 Güvenli PLC Kodlama İlkeleri (Secure PLC Coding Practices)
 
+![Endüstriyel PLC Kontrol Panosu](../assets/industrial_plc_control_panel.jpg)
+
 Endüstriyel siber güvenlik tarih boyunca neredeyse tamamen ağ düzeyinde güvenlik duvarları, VPN'ler ve IDS/IPS sistemleri ile ele alınmıştır. Ancak ağ çeperi aşıldığında (veya USB gibi fiziksel yollarla bypass edildiğinde), kontrolörler (PLC/RTU) kendilerine gelen her komutu sorgusuz sualsiz çalıştırır.
 
 **Top 20 Güvenli PLC Kodlama İlkeleri**, güvenliği doğrudan Seviye 1 mantıksal kontrolörün (PLC) kendi programlama döngüsüne (Ladder Logic, Structured Text, Fonksiyon Blokları) yerleştiren küresel bir inisiyatiftir.

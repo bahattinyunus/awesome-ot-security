@@ -322,6 +322,8 @@ Avrupa, Orta Doğu ve Asya elektrik iletim ve dağıtım şebekelerinde SCADA ko
 
 ### IEC 61850 Trafo Mimarisi (GOOSE, SV, MMS) & IEC 62351
 
+![Akıllı Şebeke ve Trafo Merkezi Otomasyonu](assets/smart_grid_substation.jpg)
+
 Modern dijital trafo merkezlerinin (Digital Substation) omurgasıdır:
 * **GOOSE (Generic Object Oriented Substation Events):** Arıza durumunda kesicilerin 4 milisaniyenin altında açılmasını sağlayan L2 çok noktaya yayın (multicast - EtherType `0x88B8`) mesajlarıdır.
 * **Sampled Values (SV - IEC 61850-9-2):** Akım ve gerilim trafolarının anlık analog sinyallerini mikrosaniyede bir dijital paketler halinde iletir (EtherType `0x88BA`).
@@ -512,6 +514,8 @@ Türkiye Bilgi ve İletişim Güvenliği Rehberi (BİGR); kamu kurumları ve kri
 
 ## 7. Savunma Stratejileri, Ağ Görünürlüğü ve Mavi Takım (Blue Team)
 
+![Endüstriyel Kontrol ve OT Tehdit İzleme Merkezi (OT-SOC)](assets/scada_soc_control_room.jpg)
+
 ### Derinlemesine Savunma (Defense-in-Depth for OT)
 
 Tek bir güvenlik duvarına veya antivirüse güvenmek endüstriyel dünyada felakettir. Savunma katmanlı olmalıdır:
@@ -559,6 +563,8 @@ Tek bir güvenlik duvarına veya antivirüse güvenmek endüstriyel dünyada fel
 ---
 
 ## 8. PLC Güvenliği, Güvenli Kodlama ve Donanım Analizi
+
+![Endüstriyel Otomasyon ve Güvenlik PLC Kontrol Panosu](assets/industrial_plc_control_panel.jpg)
 
 > 📖 *Türkçe detaylı kılavuz için:* [cheatsheets/top20_plc_coding_tr.md](cheatsheets/top20_plc_coding_tr.md)
 
