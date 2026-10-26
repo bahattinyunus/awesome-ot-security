@@ -1,0 +1,24 @@
+# =============================================================================
+# Awesome OT & ICS Security Lab - Suricata / Snort Tespit Kuralları
+# =============================================================================
+
+# 1. Modbus TCP Yetkisiz Tekli Bobin Yazma (Function Code 05: Write Single Coil)
+alert tcp any any -> $HOME_NET 502 (msg:"[OT-ATTACK] Modbus TCP Yetkisiz Write Single Coil Komutu"; flow:to_server,established; content:"|00 00|"; offset:2; depth:2; content:"|05|"; offset:7; depth:1; classtype:bad-unknown; sid:1000001; rev:1;)
+
+# 2. Modbus TCP Yetkisiz Çoklu Kayıt Yazma (Function Code 16 / 0x10: Write Multiple Registers)
+alert tcp any any -> $HOME_NET 502 (msg:"[OT-ATTACK] Modbus TCP Write Multiple Registers Komutu Algılandı"; flow:to_server,established; content:"|00 00|"; offset:2; depth:2; content:"|10|"; offset:7; depth:1; classtype:bad-unknown; sid:1000002; rev:1;)
+
+# 3. Modbus TCP İstisna / Hata Yanıtı (Olası Fuzzing veya Tarama)
+alert tcp $HOME_NET 502 -> any any (msg:"[OT-ANOMALY] Modbus TCP İstisna / Hata Paketi Döndü"; flow:to_client,established; byte_test:1,&,0x80,7; classtype:protocol-command-decode; sid:1000003; rev:1;)
+
+# 4. Siemens S7comm CPU STOP Durdurma Komutu (Port 102)
+alert tcp any any -> $HOME_NET 102 (msg:"[OT-CRITICAL] Siemens S7comm PLC CPU STOP Komutu Enjekte Edildi!"; flow:to_server,established; content:"|32|"; offset:7; depth:1; content:"|29|"; distance:0; classtype:attempted-admin; sid:1000004; rev:1;)
+
+# 5. Siemens S7comm Blok Bellek Yazma (Function 0x05 / Memory Write)
+alert tcp any any -> $HOME_NET 102 (msg:"[OT-WARNING] Siemens S7comm PLC Bellek Yazma İsteği"; flow:to_server,established; content:"|32|"; offset:7; depth:1; content:"|05|"; distance:0; classtype:policy-violation; sid:1000005; rev:1;)
+
+# 6. DNP3 Cihazı Yeniden Başlatma Komutu (Cold Restart / Function 18)
+alert tcp any any -> $HOME_NET 20000 (msg:"[OT-CRITICAL] DNP3 Outstation Cold Restart Komutu!"; flow:to_server,established; content:"|05 64|"; depth:2; content:"|12|"; distance:0; classtype:attempted-admin; sid:1000006; rev:1;)
+
+# 7. IEC 60870-5-104 Şalt Sahası Tekli Komut (ASDU Type 45 - Kesici Aç/Kapa)
+alert tcp any any -> $HOME_NET 2404 (msg:"[OT-ALERT] IEC 60870-5-104 Kesici Kumanda Komutu (ASDU Type 45)"; flow:to_server,established; content:"|68|"; depth:1; content:"|2D|"; offset:6; depth:1; classtype:attempted-admin; sid:1000007; rev:1;)

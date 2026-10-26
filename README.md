@@ -2,11 +2,69 @@
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#14-katkıda-bulunma-lisans-ve-yasal-uyarı)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Standards: IEC 62443](https://img.shields.io/badge/Standards-IEC%2062443%20%7C%20NIST%20800--82-orange.svg)](https://www.isa.org/standards-and-publications/isa-standards/isa-standards-committees/isa62443)
 [![Sector: Critical Infrastructure](https://img.shields.io/badge/Focus-Critical%20Infrastructure%20%26%20Smart%20Grid-red.svg)](#)
+[![Docker Lab](https://img.shields.io/badge/Docker%20Lab-Ready-brightgreen.svg)](labs/README.md)
+[![Tools & Scripts](https://img.shields.io/badge/Toolkit-Python%203.11+-blue.svg)](scripts/README.md)
 
-Operasyonel Teknolojiler (OT), Endüstriyel Kontrol Sistemleri (ICS), SCADA, Dağıtık Kontrol Sistemleri (DCS), PLC/RTU donanımları ve Kritik Altyapıların siber güvenliği üzerine hazırlanmış; temel mimarilerden derinlemesine protokol analizlerine, geçmiş siber felaketlerden savunma stratejilerine ve uygulamalı laboratuvar senaryolarına kadar uzanan **dünya standartlarında, kapsamlı Türkçe başvuru kaynağı ve cephaneliğidir.**
+Operasyonel Teknolojiler (OT), Endüstriyel Kontrol Sistemleri (ICS), SCADA, Dağıtık Kontrol Sistemleri (DCS), PLC/RTU donanımları ve Kritik Altyapıların siber güvenliği üzerine hazırlanmış; temel mimarilerden derinlemesine protokol analizlerine, geçmiş siber felaketlerden savunma stratejilerine, **çalıştırılabilir Docker laboratuvarından pratik Python denetim ve tehdit avcılığı araçlarına** kadar uzanan **dünya standartlarında, kapsamlı Türkçe başvuru kaynağı ve cephaneliğidir.**
+
+---
+
+## 🗺️ Depo Ekosistemi ve Modül Haritası
+
+Bu repo yalnızca teorik bir doküman değil; aynı zamanda çalışan laboratuvarlar, pratik araçlar ve hile tabloları içeren tam teşekküllü bir ekosistemdir:
+
+```text
+awesome-ot-security/
+├── 🧪 labs/                           -> İnteraktif Docker Test Laboratuvarı
+│   ├── docker-compose.yml             -> PLC, Honeypot ve Auditor konteyner mimarisi
+│   ├── modbus-sim/                    -> Simüle Edilmiş Su Deposu Süreç PLC'si (Python/PyModbus)
+│   ├── ids-sensor/rules/              -> Suricata / Snort Endüstriyel Tehdit Tespit Kuralları
+│   └── README.md                      -> Adım adım lab kurulum ve test kılavuzu
+│
+├── 🛠️ scripts/                        -> Python Tabanlı OT Güvenlik Araç Kiti
+│   ├── modbus_auditor.py              -> Modbus TCP keşif, bellek dökümü ve yetkisiz yazma denetleyicisi
+│   ├── s7_recon.py                    -> Siemens S7-300/400/1200/1500 donanım ve CPU durum tarayıcısı
+│   ├── goose_analyzer.py              -> IEC 61850 GOOSE L2 çerçeve analizörü & Replay dedektörü
+│   ├── dnp3_audit.py                  -> DNP3 (IEEE 1815) Outstation bağlantı durumu ve güvenlik denetimi
+│   ├── ot_pcap_hunter.py              -> Çevrimdışı PCAP tehdit avcısı (Modbus yazma, S7 CPU STOP tespiti)
+│   ├── requirements.txt               -> Gerekli Python bağımlılıkları
+│   └── README.md                      -> Araç çalıştırma kılavuzu ve parametreler
+│
+├── 📑 cheatsheets/                    -> Hızlı Başvuru ve Hile Tabloları
+│   ├── wireshark_ot_filters.md        -> Wireshark endüstriyel filtreleri ve anomali tespiti
+│   └── top20_plc_coding_tr.md         -> Top 20 Güvenli PLC Kodlama İlkeleri (Türkçe Rehber)
+│
+├── 🏛️ frameworks/                     -> Mimari ve Tehdit Çerçeveleri
+│   ├── purdue_reference.md            -> Purdue (ISA-95) Modeli ve Katı Segmentasyon İlkeleri
+│   └── mitre_attack_ics_deepdive.md   -> MITRE ATT&CK for ICS Tehdit ve Savunma Matrisi
+│
+├── CONTRIBUTING.md                    -> Katkıda bulunma rehberi
+├── LICENSE                            -> MIT Lisansı
+└── README.md                          -> Ana başvuru dokümanı
+```
+
+---
+
+## ⚡ Hızlı Başlangıç (Quickstart)
+
+### 1. Docker Laboratuvarını Ayağa Kaldırma (Simüle PLC & Honeypot)
+```bash
+cd labs
+docker compose up -d
+docker logs -f ot_modbus_plc
+```
+
+### 2. Modbus Denetim Aracını Çalıştırma
+```bash
+cd scripts
+pip install -r requirements.txt
+
+# Simüle edilmiş su deposu PLC'sini tara ve yetkisiz yazma testi yap
+python modbus_auditor.py -t 127.0.0.1 -p 5020 --test-write
+```
 
 ---
 
@@ -128,6 +186,8 @@ Endüstriyel kontrol sistemleri **Siber-Fiziksel Sistemlerdir (Cyber-Physical Sy
 ---
 
 ## 2. Endüstriyel Mimari ve Segmentasyon Modelleri
+
+> 📖 *Ayrıntılı referans mimari dokümanı için:* [frameworks/purdue_reference.md](frameworks/purdue_reference.md)
 
 ### Purdue Kurumsal Referans Mimarisi (PERA / ISA-95)
 
@@ -292,6 +352,8 @@ Endüstri 4.0 ve Akıllı Fabrika çözümlerinde bulut-kenar (Edge-to-Cloud) ve
 ---
 
 ## 4. MITRE ATT&CK for ICS (Endüstriyel Tehdit Matrisi)
+
+> 📖 *Ayrıntılı teknik ve savunma analizleri için:* [frameworks/mitre_attack_ics_deepdive.md](frameworks/mitre_attack_ics_deepdive.md)
 
 MITRE ATT&CK for ICS, endüstriyel kontrol sistemlerini hedef alan saldırganların (APT grupları, fidye çeteleri) kullandığı taktik ve teknikleri haritalandıran global bilgi tabanıdır.
 
@@ -468,6 +530,7 @@ Tek bir güvenlik duvarına veya antivirüse güvenmek endüstriyel dünyada fel
   - Modbus, DNP3, IEC 104, S7comm, BACnet, Ethernet/IP gibi protokollerin fonksiyon kodlarını ayrıştırarak loglar üretir.
 * **Suricata OT Kural Kümeleri (Quickdraw):**
   - Anormal fonksiyon kodlarını (örneğin mesai saatleri dışında PLC'ye gelen `Program Download` isteği) tespit eden imzalar barındırır.
+  - *Depomuzdaki örnek kurallar için:* [labs/ids-sensor/rules/ot_security.rules](labs/ids-sensor/rules/ot_security.rules)
 * **GrassMarlin:** NSA tarafından geliştirilmiş, endüstriyel ağ topolojisini PCAP verilerinden çıkaran açık kaynaklı haritalama aracıdır.
 
 ### Güvenli Uzaktan Erişim (SRA) ve Kimlik Doğrulama Mimarisi
@@ -488,6 +551,8 @@ Tek bir güvenlik duvarına veya antivirüse güvenmek endüstriyel dünyada fel
 ---
 
 ## 8. PLC Güvenliği, Güvenli Kodlama ve Donanım Analizi
+
+> 📖 *Türkçe detaylı kılavuz için:* [cheatsheets/top20_plc_coding_tr.md](cheatsheets/top20_plc_coding_tr.md)
 
 ### Top 20 Güvenli PLC Kodlama İlkeleri (Top 20 Secure PLC Coding)
 
@@ -514,7 +579,7 @@ Geleneksel olarak güvenlik ağ seviyesinde aranırken, Top 20 ilkeleri doğruda
 
 ## 9. Uygulamalı Laboratuvar, Simülatörler ve Honeypotlar
 
-Kendi güvenli test ortamınızı kurarak ICS protokollerini ve saldırı senaryolarını test edebileceğiniz ortamlar:
+> 🧪 *Docker ile tek komutta kendi labınızı ayağa kaldırmak için:* [labs/README.md](labs/README.md)
 
 ### Açık Kaynak Simülatörler ve Sanal Test Sahaları
 
@@ -540,6 +605,8 @@ Kendi güvenli test ortamınızı kurarak ICS protokollerini ve saldırı senary
 ---
 
 ## 10. Endüstriyel Güvenlik Cephaneliği ve Araçlar (Awesome Arsenal)
+
+> 🛠️ *Bu repoda geliştirilmiş Python araçları için:* [scripts/README.md](scripts/README.md)
 
 ### Keşif ve Varlık Envanteri
 
@@ -589,6 +656,8 @@ Kendi güvenli test ortamınızı kurarak ICS protokollerini ve saldırı senary
 
 ## 11. Wireshark Endüstriyel Protokol Filtreleri & Cheat Sheet
 
+> 🦈 *Kapsamlı Wireshark rehberi için:* [cheatsheets/wireshark_ot_filters.md](cheatsheets/wireshark_ot_filters.md)
+
 Paket analizi yaparken kullanabileceğiniz en kritik ekran filtreleri (Display Filters):
 
 | Protokol | Port / L2 | Temel Filtre | Güvenlik / Anomali Filtresi | Açıklama |
@@ -609,158 +678,24 @@ Paket analizi yaparken kullanabileceğiniz en kritik ekran filtreleri (Display F
 ## 12. Pratik Kod Örnekleri (Python Betikleri)
 
 ### 12.1 Modbus TCP Denetim ve Manipülasyon Test Betiği
-
-Laboratuvar ortamındaki bir PLC'nin coil (bobin) veya register değerlerini okuyan ve güvenlik testleri için kontrollü yazma işlemi yapan referans kod:
+*Kaynak kodu için:* [`scripts/modbus_auditor.py`](scripts/modbus_auditor.py)
 
 ```python
-#!/usr/bin/env python3
-"""
-Modbus TCP Güvenlik Test ve Denetim Betiği
-UYARI: Yalnızca yetkili laboratuvar ortamlarında test amacıyla kullanılmalıdır.
-"""
-
-import sys
+# Hızlı kullanım:
 from pymodbus.client import ModbusTcpClient
-from pymodbus.exceptions import ModbusException
 
-PLC_IP = "192.168.1.100"
-PLC_PORT = 502
-COIL_ADDRESS = 0x0001  # Acil Durdurma / Pompa Valfi
-
-def audit_modbus():
-    print(f"[*] Hedef PLC'ye bağlanılıyor: {PLC_IP}:{PLC_PORT}")
-    client = ModbusTcpClient(PLC_IP, port=PLC_PORT, timeout=3)
-    
-    if not client.connect():
-        print("[-] HATA: PLC ile TCP bağlantısı kurulamadı!")
-        return
-
-    print("[+] TCP bağlantısı kuruldu.")
-    
-    try:
-        # 1. Mevcut Bobin (Coil) Durumunu Oku
-        print(f"[*] Adres {COIL_ADDRESS} Coil durumu okunuyor...")
-        rr = client.read_coils(address=COIL_ADDRESS, count=1)
-        if rr.isError():
-            print(f"[-] Okuma yanıtında Modbus istisna hatası: {rr}")
-        else:
-            current_val = rr.bits[0]
-            print(f"[+] Mevcut Bobin Değeri: {current_val}")
-
-        # 2. Yetkisiz Yazma Testi (Simülasyon)
-        # Test amaçlı mevcut değeri tersine çevirme denemesi:
-        test_val = not current_val
-        print(f"[!] Test komutu gönderiliyor: Adres {COIL_ADDRESS} -> {test_val}")
-        wr = client.write_coil(address=COIL_ADDRESS, value=test_val)
-        
-        if wr.isError():
-            print(f"[-] Yazma reddedildi: {wr}")
-        else:
-            print("[+] BAŞARILI: Bobin değeri değiştirildi! (Ağda kontrol yetkilendirmesi yok!)")
-
-    except ModbusException as e:
-        print(f"[-] Protokol hatası oluştu: {e}")
-    finally:
-        client.close()
-        print("[*] Bağlantı kapatıldı.")
-
-if __name__ == "__main__":
-    audit_modbus()
+client = ModbusTcpClient("127.0.0.1", port=5020)
+client.connect()
+# 0. adresteki pompayı aç (True)
+client.write_coil(address=0, value=True)
+client.close()
 ```
 
 ### 12.2 S7comm Siemens PLC Bilgi Toplama ve CPU Durumu Sorgulama
-
-Siemens S7-300/400 veya uyumlu PLC'lerin temel model, donanım numarası ve CPU çalışma modunu sorgulayan Python betiği (`python-snap7` gerektirir):
-
-```python
-#!/usr/bin/env python3
-"""
-Siemens S7comm PLC Keşif ve Tanılama Betiği
-Gereksinim: pip install python-snap7
-"""
-
-import snap7
-from snap7.snap7types import S7CpuStatusUnknown, S7CpuStatusRun, S7CpuStatusStop
-
-TARGET_IP = "192.168.1.120"
-RACK = 0
-SLOT = 2  # S7-300 için genellikle Slot 2, S7-1200/1500 için Slot 1
-
-def inspect_siemens_plc():
-    plc = snap7.client.Client()
-    print(f"[*] Siemens PLC'ye bağlanılıyor: {TARGET_IP} (Rack: {RACK}, Slot: {SLOT})")
-    
-    try:
-        plc.connect(TARGET_IP, RACK, SLOT)
-        if plc.get_connected():
-            print("[+] Bağlantı başarılı!")
-            
-            # CPU Çalışma Durumunu Al
-            cpu_state = plc.get_cpu_state()
-            print(f"[*] CPU Durumu: {cpu_state}")
-            
-            # Cihaz Sipariş / Model Bilgisini Çek (Order Code)
-            order_code = plc.get_order_code()
-            print(f"[+] PLC Donanım / Sipariş Kodu: {order_code.Code.decode('utf-8').strip()}")
-            
-            # CPU Bilgilerini Çek
-            cpu_info = plc.get_cpu_info()
-            print(f"[+] Modül Adı: {cpu_info.ModuleName.decode('utf-8').strip()}")
-            print(f"[+] Seri Numarası: {cpu_info.SerialNumber.decode('utf-8').strip()}")
-        else:
-            print("[-] Bağlantı sağlanamadı.")
-            
-    except Exception as e:
-        print(f"[-] Hata oluştu: {e}")
-    finally:
-        plc.disconnect()
-        print("[*] Oturum sonlandırıldı.")
-
-if __name__ == "__main__":
-    inspect_siemens_plc()
-```
+*Kaynak kodu için:* [`scripts/s7_recon.py`](scripts/s7_recon.py)
 
 ### 12.3 IEC 61850 GOOSE Trafiği Pasif Dinleme ve Anomali Tespiti
-
-Ethernet Seviye 2 üzerinde çalışan GOOSE paketlerini pasif olarak yakalayan, Durum Numarası (`stNum`) ve Sıra Numarasını (`sqNum`) izleyerek olası replay veya enjeksiyon anomalilerini bildiren Scapy betiği:
-
-```python
-#!/usr/bin/env python3
-"""
-IEC 61850 GOOSE Pasif Anomali İzleyici
-EtherType 0x88B8 paketlerini inceler.
-"""
-
-from scapy.all import sniff, Ether, Raw
-import struct
-
-GOOSE_ETHERTYPE = 0x88B8
-
-# Bilinen son durum takip tablosu: {gocbRef: (last_stNum, last_sqNum)}
-goose_state_tracker = {}
-
-def process_goose_packet(packet):
-    if packet.haslayer(Ether) and packet[Ether].type == GOOSE_ETHERTYPE:
-        src_mac = packet[Ether].src
-        dst_mac = packet[Ether].dst
-        raw_payload = bytes(packet[Raw]) if packet.haslayer(Raw) else b""
-        
-        print(f"[+] GOOSE Paketi Yakalandı: MAC: {src_mac} -> {dst_mac} | Uzunluk: {len(packet)} bayt")
-        
-        # Gerçek üretim ortamında ASN.1 BER ayrıştırıcı ile gocbRef, stNum ve sqNum çözümlenir.
-        # stNum (Status Number) aynı kalırken sqNum artmalıdır. 
-        # Eğer stNum artarsa fiziksel olay gerçekleşmiştir (örn: kesici açıldı).
-        # sqNum geriye düşerse olası bir REPLAY saldırısı şüphesi doğar!
-
-def start_goose_sniffer(interface="eth0"):
-    print(f"[*] {interface} arayüzünde IEC 61850 GOOSE dinleyicisi başlatıldı...")
-    sniff(iface=interface, filter="ether proto 0x88b8", prn=process_goose_packet, store=0)
-
-if __name__ == "__main__":
-    # Test ortamı için arayüz adını belirtin
-    # start_goose_sniffer(interface="eth0")
-    print("[*] Lütfen test etmek istediğiniz ağ arayüzünü seçerek betiği çalıştırın.")
-```
+*Kaynak kodu için:* [`scripts/goose_analyzer.py`](scripts/goose_analyzer.py)
 
 ---
 
@@ -804,11 +739,7 @@ if __name__ == "__main__":
 ## 14. Katkıda Bulunma, Lisans ve Yasal Uyarı
 
 ### Katkıda Bulunma (Contributing)
-Yeni araçlar, zafiyet analizleri, laboratuvar senaryoları veya makaleler eklemek isterseniz katkılarınızı memnuniyetle bekliyoruz!
-1. Bu depoyu çatallayın (Fork).
-2. Yeni bir dal açın: `git checkout -b feature/yeni-bolum`.
-3. Değişikliklerinizi yapın ve açıklayıcı bir commit mesajı yazın.
-4. Çekme İsteği (Pull Request) oluşturun.
+Yeni araçlar, zafiyet analizleri, laboratuvar senaryoları veya makaleler eklemek isterseniz katkılarınızı memnuniyetle bekliyoruz! Ayrıntılı yönergeler için [CONTRIBUTING.md](CONTRIBUTING.md) belgesini inceleyebilirsiniz.
 
 ### Lisans
 Bu proje **[MIT Lisansı](LICENSE)** altında sunulmaktadır. Eğitim ve araştırma amaçlı serbestçe paylaşılabilir, genişletilebilir.

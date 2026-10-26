@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # 1. Simüle Edilmiş Seviye 1 Su Deposu PLC'si
+  modbus_plc:
+    build: ./modbus-sim
+    container_name: ot_modbus_plc
+    ports:
+      - "5020:502"
+    networks:
+      ot_network:
+        ipv4_address: 172.28.0.10
+    restart: unless-stopped
+
+  # 2. Conpot Endüstriyel Honeypot (Modbus, S7comm, BACnet simülasyonu)
+  conpot_honeypot:
+    image: honeynet/conpot:latest
+    container_name: ot_conpot_honeypot
+    ports:
+      - "1020:102"
+      - "5021:502"
+      - "47808:47808/udp"
+    networks:
+      ot_network:
+        ipv4_address: 172.28.0.20
+    restart: unless-stopped
+
+  # 3. Denetim ve Saldırı/Savunma Test İstemcisi
+  ot_auditor:
+    image: python:3.11-slim
+    container_name: ot_security_auditor
+    volumes:
+      - ../scripts:/scripts
+    working_dir: /scripts
+    command: >
+      bash -c "pip install -r requirements.txt &&
+               echo '[+] OT Güvenlik Test Laboratuvarı Hazır!' &&
+               tail -f /dev/null"
+    networks:
+      ot_network:
+        ipv4_address: 172.28.0.30
+    depends_on:
+      - modbus_plc
+
+networks:
+  ot_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
