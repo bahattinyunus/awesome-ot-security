@@ -12,7 +12,24 @@ services:
         ipv4_address: 172.28.0.10
     restart: unless-stopped
 
-  # 2. Conpot Endüstriyel Honeypot (Modbus, S7comm, BACnet simülasyonu)
+  # 2. Web Tabanlı SCADA HMI Operatör Konsolu (Purdue Seviye 2)
+  scada_hmi:
+    build: ./hmi-dashboard
+    container_name: ot_scada_hmi
+    ports:
+      - "8080:8080"
+    environment:
+      - MODBUS_HOST=172.28.0.10
+      - MODBUS_PORT=502
+      - HTTP_PORT=8080
+    networks:
+      ot_network:
+        ipv4_address: 172.28.0.40
+    depends_on:
+      - modbus_plc
+    restart: unless-stopped
+
+  # 3. Conpot Endüstriyel Honeypot (Modbus, S7comm, BACnet simülasyonu)
   conpot_honeypot:
     image: honeynet/conpot:latest
     container_name: ot_conpot_honeypot
@@ -25,7 +42,7 @@ services:
         ipv4_address: 172.28.0.20
     restart: unless-stopped
 
-  # 3. Denetim ve Saldırı/Savunma Test İstemcisi
+  # 4. Denetim ve Saldırı/Savunma Test İstemcisi
   ot_auditor:
     image: python:3.11-slim
     container_name: ot_security_auditor

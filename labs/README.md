@@ -28,9 +28,12 @@ Bu laboratuvar, bilgisayarınızda herhangi bir fiziksel PLC donanımına ihtiya
 1. **`ot_modbus_plc` (172.28.0.10):**
    - Python ve PyModbus ile yazılmış gerçekçi bir Su Deposu Süreç PLC'si.
    - Pompa (Coil 0) ve Vana (Coil 1) durumuna göre tank seviyesini dinamik olarak hesaplar ve telemetri logları üretir.
-2. **`ot_conpot_honeypot` (172.28.0.20):**
+2. **`ot_scada_hmi` (172.28.0.40):**
+   - Web tabanlı canlı SCADA HMI Operatör Konsolu (`http://localhost:8080`).
+   - Tank seviyesi, boru basıncı ve pompa/vana anahtarlarını canlı gösterir ve komut göndermeyi sağlar.
+3. **`ot_conpot_honeypot` (172.28.0.20):**
    - İnternet ortamındaki saldırganları aldatmak ve keşif girişimlerini yakalamak için çalışan popüler endüstriyel honeypot.
-3. **`ot_security_auditor` (172.28.0.30):**
+4. **`ot_security_auditor` (172.28.0.30):**
    - `scripts/` dizinindeki tüm denetim araçlarını çalıştırabileceğiniz hazır ortam.
 
 ---
@@ -45,6 +48,9 @@ Docker ve Docker Compose yüklü olmalıdır:
 cd labs
 docker compose up -d
 ```
+
+Tarayıcınızdan Web SCADA Operatör Arayüzüne gidin:
+👉 **[http://localhost:8080](http://localhost:8080)**
 
 Konteynerlerin durumunu kontrol edin:
 ```bash

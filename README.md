@@ -8,9 +8,11 @@
 [![Standards: IEC 62443](https://img.shields.io/badge/Standards-IEC%2062443%20%7C%20NIST%20800--82-orange.svg)](https://www.isa.org/standards-and-publications/isa-standards/isa-standards-committees/isa62443)
 [![Sector: Critical Infrastructure](https://img.shields.io/badge/Focus-Critical%20Infrastructure%20%26%20Smart%20Grid-red.svg)](#)
 [![Docker Lab](https://img.shields.io/badge/Docker%20Lab-Ready-brightgreen.svg)](labs/README.md)
+[![Web SCADA](https://img.shields.io/badge/Web%20HMI-Port%208080-blue.svg)](labs/README.md)
 [![Tools & Scripts](https://img.shields.io/badge/Toolkit-Python%203.11+-blue.svg)](scripts/README.md)
+[![CI Validation](https://github.com/bahattinyunus/awesome-ot-security/actions/workflows/ci.yml/badge.svg)](https://github.com/bahattinyunus/awesome-ot-security/actions)
 
-Operasyonel Teknolojiler (OT), Endüstriyel Kontrol Sistemleri (ICS), SCADA, Dağıtık Kontrol Sistemleri (DCS), PLC/RTU donanımları ve Kritik Altyapıların siber güvenliği üzerine hazırlanmış; temel mimarilerden derinlemesine protokol analizlerine, geçmiş siber felaketlerden savunma stratejilerine, **çalıştırılabilir Docker laboratuvarından pratik Python denetim ve tehdit avcılığı araçlarına** kadar uzanan **dünya standartlarında, kapsamlı Türkçe başvuru kaynağı ve cephaneliğidir.**
+Operasyonel Teknolojiler (OT), Endüstriyel Kontrol Sistemleri (ICS), SCADA, Dağıtık Kontrol Sistemleri (DCS), PLC/RTU donanımları ve Kritik Altyapıların siber güvenliği üzerine hazırlanmış; temel mimarilerden derinlemesine protokol analizlerine, geçmiş siber felaketlerden savunma stratejilerine, **çalıştırılabilir Docker laboratuvarından canlı Web SCADA HMI paneline ve pratik Python tehdit avcılığı araçlarına** kadar uzanan **dünya standartlarında, kapsamlı Türkçe başvuru kaynağı ve cephaneliğidir.**
 
 ---
 
@@ -20,29 +22,40 @@ Bu repo yalnızca teorik bir doküman değil; aynı zamanda çalışan laboratuv
 
 ```text
 awesome-ot-security/
+├── 🎮 arsenal.py                       -> Etkileşimli Terminal Menüsü ve Araç Başlatıcı
+│
 ├── 🧪 labs/                           -> İnteraktif Docker Test Laboratuvarı
-│   ├── docker-compose.yml             -> PLC, Honeypot ve Auditor konteyner mimarisi
+│   ├── docker-compose.yml             -> PLC, Web SCADA HMI, Honeypot ve Auditor konteynerleri
 │   ├── modbus-sim/                    -> Simüle Edilmiş Su Deposu Süreç PLC'si (Python/PyModbus)
+│   ├── hmi-dashboard/                 -> Canlı Web SCADA Operatör Arayüzü (Port 8080)
 │   ├── ids-sensor/rules/              -> Suricata / Snort Endüstriyel Tehdit Tespit Kuralları
 │   └── README.md                      -> Adım adım lab kurulum ve test kılavuzu
 │
 ├── 🛠️ scripts/                        -> Python Tabanlı OT Güvenlik Araç Kiti
 │   ├── modbus_auditor.py              -> Modbus TCP keşif, bellek dökümü ve yetkisiz yazma denetleyicisi
 │   ├── s7_recon.py                    -> Siemens S7-300/400/1200/1500 donanım ve CPU durum tarayıcısı
+│   ├── opcua_scanner.py               -> OPC UA (Port 4840) uç nokta ve SecurityPolicy#None tarayıcısı
 │   ├── goose_analyzer.py              -> IEC 61850 GOOSE L2 çerçeve analizörü & Replay dedektörü
 │   ├── dnp3_audit.py                  -> DNP3 (IEEE 1815) Outstation bağlantı durumu ve güvenlik denetimi
 │   ├── ot_pcap_hunter.py              -> Çevrimdışı PCAP tehdit avcısı (Modbus yazma, S7 CPU STOP tespiti)
+│   ├── generate_sample_pcap.py        -> Sentetik OT saldırı PCAP üreteci (Zero-Dependency)
 │   ├── requirements.txt               -> Gerekli Python bağımlılıkları
 │   └── README.md                      -> Araç çalıştırma kılavuzu ve parametreler
+│
+├── 📦 pcaps/                          -> Analiz ve Tehdit Avcılığı İçin Örnek Paket Deposu
+│   ├── ot_attack_sample.pcap          -> Modbus yazma, S7 CPU STOP ve GOOSE çerçeveleri içeren PCAP
+│   └── README.md                      -> PCAP döküm analizi ve tshark filtreleme rehberi
 │
 ├── 📑 cheatsheets/                    -> Hızlı Başvuru ve Hile Tabloları
 │   ├── wireshark_ot_filters.md        -> Wireshark endüstriyel filtreleri ve anomali tespiti
 │   └── top20_plc_coding_tr.md         -> Top 20 Güvenli PLC Kodlama İlkeleri (Türkçe Rehber)
 │
-├── 🏛️ frameworks/                     -> Mimari ve Tehdit Çerçeveleri
+├── 🏛️ frameworks/                     -> Mimari, Olgunluk ve Tehdit Çerçeveleri
 │   ├── purdue_reference.md            -> Purdue (ISA-95) Modeli ve Katı Segmentasyon İlkeleri
+│   ├── ot_security_maturity_model.md  -> 5 Aşamalı Endüstriyel Siber Güvenlik Olgunluk Modeli (OT-CMM)
 │   └── mitre_attack_ics_deepdive.md   -> MITRE ATT&CK for ICS Tehdit ve Savunma Matrisi
 │
+├── .github/workflows/ci.yml           -> Otomatik CI Sözdizimi ve Bütünlük Doğrulama
 ├── CONTRIBUTING.md                    -> Katkıda bulunma rehberi
 ├── LICENSE                            -> MIT Lisansı
 └── README.md                          -> Ana başvuru dokümanı
@@ -52,20 +65,33 @@ awesome-ot-security/
 
 ## ⚡ Hızlı Başlangıç (Quickstart)
 
-### 1. Docker Laboratuvarını Ayağa Kaldırma (Simüle PLC & Honeypot)
+### 1. Etkileşimli Terminal Menüsü ile Başlama (Önerilen)
+Tüm araçları ve laboratuvar kontrollerini tek bir etkileşimli menüden yönetmek için:
+```bash
+python arsenal.py
+```
+
+### 2. Docker Laboratuvarını ve Web SCADA HMI'ı Ayağa Kaldırma
 ```bash
 cd labs
 docker compose up -d
-docker logs -f ot_modbus_plc
 ```
+- 🌐 **Web SCADA HMI Paneli:** [http://localhost:8080](http://localhost:8080)
+- 🏭 **Modbus PLC Portu:** `localhost:5020`
+- 🍯 **Conpot Honeypot:** `localhost:1020` (S7comm), `localhost:5021` (Modbus)
 
-### 2. Modbus Denetim Aracını Çalıştırma
+### 3. Modbus Denetim Aracını Çalıştırma
 ```bash
 cd scripts
 pip install -r requirements.txt
 
 # Simüle edilmiş su deposu PLC'sini tara ve yetkisiz yazma testi yap
 python modbus_auditor.py -t 127.0.0.1 -p 5020 --test-write
+```
+
+### 4. Örnek Saldırı PCAP'ini Tehdit Avcısı ile İnceleme
+```bash
+python scripts/ot_pcap_hunter.py -r pcaps/ot_attack_sample.pcap
 ```
 
 ---

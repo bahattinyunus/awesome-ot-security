@@ -41,3 +41,4 @@ Thumbs.db
 *.pcap
 *.pcapng
 *.json.report
+!pcaps/*.pcap

@@ -69,7 +69,33 @@ python dnp3_audit.py -t 192.168.1.75 -p 20000
 Ağ güvenlik sensörlerinden veya Wireshark'tan alınmış PCAP paket dökümlerini inceler. Modbus coil/register manipülasyonlarını, Siemens CPU STOP komutlarını ve anormal trafik artışlarını raporlar.
 
 ```bash
-python ot_pcap_hunter.py -r saha_saldiri_kaydi.pcap
+python ot_pcap_hunter.py -r pcaps/ot_attack_sample.pcap
+```
+
+---
+
+### 6. `opcua_scanner.py` — OPC UA Güvenlik ve Uç Nokta Tarayıcısı
+OPC UA (IEC 62541 - Port 4840) servislerini tarar, Hello/Acknowledge protokol el sıkışmasını gerçekleştirir ve `SecurityPolicy#None` açık metin konfigürasyon zaafiyetini denetler.
+
+```bash
+python opcua_scanner.py -t 192.168.1.80 -p 4840 -o opcua_report.json
+```
+
+---
+
+### 7. `generate_sample_pcap.py` — Sentetik Saldırı PCAP Üreteci (Zero-Dependency)
+Harici hiçbir bağımlılık gerektirmeden saf Python ile Modbus yetkisiz yazma, Siemens CPU STOP ve GOOSE L2 çerçeveleri içeren sentetik PCAP dökümleri üretir.
+
+```bash
+python generate_sample_pcap.py pcaps/ot_attack_sample.pcap
+```
+
+---
+
+### 🎮 Hepsi-Bir-Arada Menü: `arsenal.py`
+Tüm bu araçları ve Docker laboratuvarını projenin kök dizinindeki etkileşimli terminal menüsünden de yönetebilirsiniz:
+```bash
+python arsenal.py
 ```
 
 ---
