@@ -1,5 +1,7 @@
 # 🏛️ Purdue Kurumsal Referans Mimarisi (PERA / ISA-95) Derinlemesine Rehber
 
+![Purdue Modeli](../assets/purdue-model.svg)
+
 Purdue Modeli (Purdue Enterprise Reference Architecture), 1990'larda Theodore J. Williams ve Purdue Üniversitesi Konsorsiyumu tarafından geliştirilmiş ve daha sonra ANSI/ISA-95 standardı olarak kabul edilmiş olan endüstriyel ağ ve sistem hiyerarşisidir.
 
 ---

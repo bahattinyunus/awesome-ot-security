@@ -1,5 +1,7 @@
 # 🧪 İnteraktif OT / ICS Güvenlik Test Laboratuvarı (Docker Lab)
 
+![Lab Mimarisi](../assets/lab-topology.svg)
+
 Bu laboratuvar, bilgisayarınızda herhangi bir fiziksel PLC donanımına ihtiyaç duymadan, siber-fiziksel süreçleri, endüstriyel protokol manipülasyonlarını ve tespit mekanizmalarını test etmeniz için tasarlanmış izole bir Docker ortamıdır.
 
 ---

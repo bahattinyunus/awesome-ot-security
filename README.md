@@ -1,5 +1,7 @@
 # Operasyonel Teknolojiler (OT) & Endüstriyel Kontrol Sistemleri (ICS) Güvenliği: Kapsamlı Başvuru, Tehdit Analizi ve Savunma Rehberi
 
+![OT & ICS Cyber Security Hero Banner](assets/banner.png)
+
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -191,6 +193,8 @@ Endüstriyel kontrol sistemleri **Siber-Fiziksel Sistemlerdir (Cyber-Physical Sy
 
 ### Purdue Kurumsal Referans Mimarisi (PERA / ISA-95)
 
+![Purdue Kurumsal Referans Mimarisi](assets/purdue-model.svg)
+
 Purdue Modeli, bir üretim tesisindeki bilgi akışını ve operasyonel hiyerarşiyi Seviye 0'dan Seviye 5'e kadar disipline eden endüstri standardı mimaridir:
 
 ```text
@@ -232,6 +236,8 @@ Endüstriyel DMZ, Kurumsal Ağ (IT - Seviye 4/5) ile Üretim Ağı (OT - Seviye 
 4. **Farklı Active Directory Ormanları:** Kurumsal IT Active Directory alanı ile OT ortamı asla aynı Domain Controller'ı paylaşmamalıdır. OT için izole bir AD ormanı kurulmalı veya güven ilişkisi (Trust Relationship) bulunmamalıdır.
 
 ### ISA/IEC 62443 Zones and Conduits Modeli
+
+![ISA/IEC 62443 Zones and Conduits](assets/zones-conduits.svg)
 
 Geleneksel çevre güvenliğinin yetersizliğini gören ISA/IEC 62443, ağın mikro-segmentasyonunu zorunlu kılar:
 
@@ -358,6 +364,8 @@ Endüstri 4.0 ve Akıllı Fabrika çözümlerinde bulut-kenar (Edge-to-Cloud) ve
 MITRE ATT&CK for ICS, endüstriyel kontrol sistemlerini hedef alan saldırganların (APT grupları, fidye çeteleri) kullandığı taktik ve teknikleri haritalandıran global bilgi tabanıdır.
 
 ### Saldırı Taktikleri ve Matris Yapısı
+
+![MITRE ATT&CK for ICS](assets/mitre-ics.svg)
 
 ```text
 [ Initial Access ] ──> [ Execution ] ──> [ Persistence ] ──> [ Evasion ]
@@ -578,6 +586,8 @@ Geleneksel olarak güvenlik ağ seviyesinde aranırken, Top 20 ilkeleri doğruda
 ---
 
 ## 9. Uygulamalı Laboratuvar, Simülatörler ve Honeypotlar
+
+![Docker OT Güvenlik Test Laboratuvarı Mimarisi](assets/lab-topology.svg)
 
 > 🧪 *Docker ile tek komutta kendi labınızı ayağa kaldırmak için:* [labs/README.md](labs/README.md)
 

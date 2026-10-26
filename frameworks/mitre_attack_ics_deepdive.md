@@ -1,5 +1,7 @@
 # 🎯 MITRE ATT&CK for ICS Derinlemesine Tehdit ve Savunma Matrisi
 
+![MITRE ATT&CK for ICS](../assets/mitre-ics.svg)
+
 MITRE ATT&CK for ICS, siber saldırganların endüstriyel otomasyon sistemlerine, enerji iletim şebekelerine, su tesislerine ve üretim hatlarına yönelik operasyonlarında sergiledikleri taktik, teknik ve prosedürleri (TTP) belgeleyen uluslararası referans kütüphanesidir.
 
 ---

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="100%" height="100%" style="background:#090e17; font-family:'Segoe UI',system-ui,sans-serif;">
+  <defs>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#10b981" flood-opacity="0.6"/>
+    </filter>
+    <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0284c7" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#38bdf8" font-size="18" font-weight="700">ISA/IEC 62443: BÖLGELER VE İLETİM KANALLARI (ZONES &amp; CONDUITS)</text>
+  <text x="450" y="52" text-anchor="middle" fill="#94a3b8" font-size="12">Endüstriyel Mikro-Segmentasyon ve Derin Paket İnceleme (DPI) Mimarisi</text>
+
+  <!-- Zone A -->
+  <rect x="40" y="80" width="320" height="260" rx="12" fill="#064e3b" fill-opacity="0.25" stroke="#10b981" stroke-width="2" filter="url(#glowGreen)"/>
+  <rect x="40" y="80" width="320" height="40" rx="12" fill="#047857"/>
+  <text x="200" y="105" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">BÖLGE 1: Fırın ve Isıl İşlem (Zone A)</text>
+  <text x="60" y="145" fill="#34d399" font-size="11" font-weight="600">Hedef Güvenlik Seviyesi: SL-3</text>
+
+  <!-- Sub-devices inside Zone A -->
+  <rect x="60" y="165" width="125" height="70" rx="8" fill="#0f172a" stroke="#059669" stroke-width="1.5"/>
+  <text x="122" y="195" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">PLC-101</text>
+  <text x="122" y="215" text-anchor="middle" fill="#94a3b8" font-size="9">Fırın Sıcaklık</text>
+
+  <rect x="215" y="165" width="125" height="70" rx="8" fill="#0f172a" stroke="#059669" stroke-width="1.5"/>
+  <text x="277" y="195" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">HMI-101</text>
+  <text x="277" y="215" text-anchor="middle" fill="#94a3b8" font-size="9">Operatör Konsolu</text>
+
+  <text x="60" y="275" fill="#a7f3d0" font-size="10">• Yüksek kaynaklı saldırganlara karşı korumalı</text>
+  <text x="60" y="295" fill="#a7f3d0" font-size="10">• Güvenli kablolama ve fiziksel kilitli pano</text>
+  <text x="60" y="315" fill="#a7f3d0" font-size="10">• Dahili ağ: Profinet IRT</text>
+
+  <!-- Conduit (Middle Pipe) -->
+  <rect x="360" y="180" width="180" height="70" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <text x="450" y="205" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">İLETİM KANALI</text>
+  <text x="450" y="222" text-anchor="middle" fill="#f8fafc" font-size="10 font-weight=600">(CONDUIT 1-2)</text>
+  <text x="450" y="238" text-anchor="middle" fill="#94a3b8" font-size="9">Firewall + DPI + IPsec</text>
+
+  <!-- Zone B -->
+  <rect x="540" y="80" width="320" height="260" rx="12" fill="#082f49" fill-opacity="0.25" stroke="#0284c7" stroke-width="2" filter="url(#glowBlue)"/>
+  <rect x="540" y="80" width="320" height="40" rx="12" fill="#0369a1"/>
+  <text x="700" y="105" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">BÖLGE 2: Paketleme ve Paletleme (Zone B)</text>
+  <text x="560" y="145" fill="#38bdf8" font-size="11" font-weight="600">Hedef Güvenlik Seviyesi: SL-2</text>
+
+  <!-- Sub-devices inside Zone B -->
+  <rect x="560" y="165" width="125" height="70" rx="8" fill="#0f172a" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="622" y="195" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">PLC-201</text>
+  <text x="622" y="215" text-anchor="middle" fill="#94a3b8" font-size="9">Robotik Kol</text>
+
+  <rect x="715" y="165" width="125" height="70" rx="8" fill="#0f172a" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="777" y="195" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">HMI-201</text>
+  <text x="777" y="215" text-anchor="middle" fill="#94a3b8" font-size="9">Paketleme Paneli</text>
+
+  <text x="560" y="275" fill="#bae6fd" font-size="10">• Standart siber tehditlere karşı korumalı</text>
+  <text x="560" y="295" fill="#bae6fd" font-size="10">• Yalnızca izin verilen fonksiyon kodları geçer</text>
+  <text x="560" y="315" fill="#bae6fd" font-size="10">• Dahili ağ: EtherNet/IP</text>
+
+  <!-- Flow Arrows -->
+  <path d="M 330 215 L 360 215" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M 540 215 L 570 215" stroke="#f59e0b" stroke-width="2"/>
+</svg>
