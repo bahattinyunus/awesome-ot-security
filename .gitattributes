@@ -1,0 +1,8 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Markdown and text files
+*.md text eol=lf
+*.txt text eol=lf
+*.py text eol=lf
+LICENSE text eol=lf
